@@ -1,0 +1,53 @@
+# ����Դ
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      # ���ӳ����������
+      maximum-pool-size: 12
+      # ����ʱ������С������
+      minimum-idle: 5
+      # �������Ӵ��ʱ��
+      idle-timeout: 300000
+      # ���ӳ�ʱʱ��
+      connection-timeout: 20000
+      # ���ӳ�����
+      pool-name: MyHikariCP
+
+
+      # HikariCpҪʹ��JMX��ر����������ӳ�����register-mbeans: true,JMX Mbean��¶idle connection
+      # Active Connections��Total Connections��The Number of threads waiting for a connection�Ȳ���
+      register-mbeans: true
+
+# mybatis-plus�������
+mybatis-plus:
+  # xmlɨ�裬���Ŀ¼�ö��Ż��߷ֺŷָ������� Mapper ����Ӧ�� XML �ļ�λ�ã�
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # �Ƿ����Զ��շ���������ӳ��:�����ݿ�������Java�����շ�����������ӳ��
+    map-underscore-to-camel-case: true
+    # �����ѯ����а�����ֵ���У��� MyBatis ��ӳ���ʱ�򣬲���ӳ������ֶ�
+    call-setters-on-nulls: true
+    # ������ûὫִ�е�sql��ӡ�������ڿ�������Ե�ʱ�������
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# ����springboot��ִ�����Ķ˵�
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: '*'
+      metrics:
+        tags:
+        application: ${spring.application.name}
+        region: my-region
+
+#        include: hikari
+#        include: prometheus
